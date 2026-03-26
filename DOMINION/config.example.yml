@@ -1,0 +1,134 @@
+# ╔══════════════════════════════════════════════════════════════════════╗
+# ║              DOMINION — Configuration Reference                     ║
+# ║  Copy to config.yml:  cp config.example.yml config.yml              ║
+# ║  All API keys are OPTIONAL — tool works fine without any of them.   ║
+# ╚══════════════════════════════════════════════════════════════════════╝
+
+# ═══════════════════════════════════════════════════════════════════════
+#  API KEYS  (all optional — skip any you don't have)
+# ═══════════════════════════════════════════════════════════════════════
+
+api_keys:
+
+  # ── SHODAN ─────────────────────────────────────────────────────────
+  # Used for: banner grabbing open ports, exposed services, CVE lookups
+  # Get key: https://account.shodan.io/  (FREE plan: 1 query/sec)
+  # Pricing:  Free / $69/mo Membership
+  shodan:          ""
+
+  # ── CENSYS ─────────────────────────────────────────────────────────
+  # Used for: scanning internet-facing hosts, certificate search
+  # Get key: https://search.censys.io/account/api  (sign-up → API tab)
+  # Pricing:  Free 250 queries/month
+  censys_id:       ""
+  censys_secret:   ""
+
+  # ── VIRUSTOTAL ─────────────────────────────────────────────────────
+  # Used for: subdomain discovery from known VT database
+  # Get key: https://www.virustotal.com/gui/my-apikey  (login required)
+  # Pricing:  Free 500 req/day (no credit card needed)
+  virustotal:      ""
+
+  # ── SECURITYTRAILS ─────────────────────────────────────────────────
+  # Used for: historical DNS records, subdomain history
+  # Get key: https://securitytrails.com/app/account/credentials
+  # Pricing:  Free 50 queries/month (API tab)
+  securitytrails:  ""
+
+  # ── GITHUB ─────────────────────────────────────────────────────────
+  # Used for: github-subdomains tool (find subdomains leaking in code)
+  # Get key: https://github.com/settings/tokens → Generate new token
+  #           Permissions needed: (none — just a public read token)
+  # Pricing:  FREE
+  github_token:    ""
+
+  # ── OPENAI ─────────────────────────────────────────────────────────
+  # Used for: Phase 12 AI attack surface analysis (GPT-4o)
+  # Get key: https://platform.openai.com/api-keys
+  # Pricing:  Pay per use (~$0.01 per recon report)
+  # If empty: Falls back to Gemini (gemini_key below)
+  openai:          ""
+
+  # ── GEMINI (Google AI) ─────────────────────────────────────────────
+  # Used for: Phase 12 AI analysis fallback when no OpenAI key
+  # Get key: https://aistudio.google.com/app/apikey  (FREE)
+  # Pricing:  FREE (Gemini 1.5 Flash — 15 req/min free tier)
+  gemini:          ""
+
+  # ── HUNTER.IO ──────────────────────────────────────────────────────
+  # Used for: email enumeration from public sources
+  # Get key: https://hunter.io/api  (login → API section)
+  # Pricing:  Free 25 searches/month
+  hunter:          ""
+
+  # ── FOFA ───────────────────────────────────────────────────────────
+  # Used for: Chinese internet search engine (finds exposed services)
+  # Get key: https://fofa.info/user/users/token  (Chinese sign-up)
+  # Pricing:  Free limited / paid plans
+  fofa:            ""
+  fofa_email:      ""   # Your FOFA account email (required with fofa key)
+
+  # ── BINARYEDGE ─────────────────────────────────────────────────────
+  # Used for: extended asset discovery
+  # Get key: https://app.binaryedge.io/account/api
+  # Pricing:  Free 250 req/month
+  binaryedge:      ""
+
+  # ── CHAOS (ProjectDiscovery) ───────────────────────────────────────
+  # Used for: massive passive subdomain dataset (chaos.projectdiscovery.io)
+  # Get key: https://cloud.projectdiscovery.io/  → API Keys section
+  # Pricing:  FREE (open registration)
+  chaos:           ""
+
+# ═══════════════════════════════════════════════════════════════════════
+#  NOTIFICATIONS  (optional — alerts when scan finishes or finds criticals)
+# ═══════════════════════════════════════════════════════════════════════
+notifications:
+
+  # ── TELEGRAM ───────────────────────────────────────────────────────
+  # How to get token:  Message @BotFather on Telegram → /newbot
+  # How to get chat_id: Message @userinfobot on Telegram → it replies your ID
+  telegram_token:   ""
+  telegram_chat_id: ""
+
+  # ── SLACK ──────────────────────────────────────────────────────────
+  # How to get: https://api.slack.com/messaging/webhooks → Create app
+  slack_webhook:    ""
+
+# ═══════════════════════════════════════════════════════════════════════
+#  SCANNING SETTINGS
+# ═══════════════════════════════════════════════════════════════════════
+settings:
+  threads:          50          # Concurrent threads for most tools
+  timeout:          600         # Default per-tool timeout (seconds)
+  rate_limit:       150         # Requests/sec for port scanning
+  full_port_scan:   false       # true = scan 1-65535 (slow) | false = top 10K
+  nuclei_severity:  "low,medium,high,critical"
+  ai_model:         "gpt-4o"   # gpt-4o | gpt-4-turbo | gemini-1.5-pro
+
+  # Skip specific phases globally (e.g. [5, 12] to skip ports and AI)
+  skip_phases: []
+
+# ═══════════════════════════════════════════════════════════════════════
+#  WORDLISTS  (auto-downloaded by install.sh — don't need to change)
+# ═══════════════════════════════════════════════════════════════════════
+wordlists:
+  subdomains:  "wordlists/subdomains.txt"    # 10M+ entries (Assetnote + SecLists)
+  directories: "wordlists/directories.txt"   # 65K+ entries (raft + common)
+  parameters:  "wordlists/parameters.txt"    # 6K+ entries (Burp + Assetnote)
+
+# ═══════════════════════════════════════════════════════════════════════
+#  TOOL PATHS  (leave empty = auto-detect from PATH and ~/tools/)
+# ═══════════════════════════════════════════════════════════════════════
+tools:
+  subfinder:   ""
+  amass:       ""
+  httpx:       ""
+  dnsx:        ""
+  naabu:       ""
+  nuclei:      ""
+  katana:      ""
+  gospider:    ""
+  feroxbuster: ""
+  gowitness:   ""
+  trufflehog:  ""
