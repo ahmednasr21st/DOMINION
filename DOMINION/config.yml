@@ -1,0 +1,63 @@
+# DOMINION Configuration File
+# Copy this to config.yml and fill in your API keys
+
+# ═══════════════════════════════════════════════════
+#  API KEYS  (leave blank to skip that integration)
+# ═══════════════════════════════════════════════════
+api_keys:
+  shodan:          ""          # https://account.shodan.io/
+  censys_id:       ""          # https://censys.io/account
+  censys_secret:   ""
+  virustotal:      ""          # https://www.virustotal.com/gui/user/{user}/apikey
+  securitytrails:  ""          # https://securitytrails.com/app/account
+  github_token:    ""          # https://github.com/settings/tokens (read:public_repo)
+  openai:          ""          # https://platform.openai.com/api-keys
+  fofa:            ""          # https://fofa.info/
+  binaryedge:      ""          # https://app.binaryedge.io/
+  hunter:          ""          # https://hunter.how/
+
+# ═══════════════════════════════════════════════════
+#  NOTIFICATIONS
+# ═══════════════════════════════════════════════════
+notifications:
+  telegram_token:  ""          # BotFather token
+  telegram_chat_id: ""         # Your chat ID
+  slack_webhook:   ""          # Slack incoming webhook URL
+
+# ═══════════════════════════════════════════════════
+#  SCANNING SETTINGS
+# ═══════════════════════════════════════════════════
+settings:
+  threads:         50          # Concurrent threads for most tools
+  timeout:         600         # Default per-tool timeout (seconds)
+  rate_limit:      150         # Requests/sec for port scanning
+  full_port_scan:  false       # Scan 1-65535 (slow) or top 10K
+  nuclei_severity: "low,medium,high,critical"
+  ai_model:        "gpt-4o"    # or gpt-3.5-turbo, gpt-4-turbo
+
+  # Skip specific phases globally (e.g. [5, 12])
+  skip_phases: []
+
+# ═══════════════════════════════════════════════════
+#  WORDLISTS
+# ═══════════════════════════════════════════════════
+wordlists:
+  subdomains:  "wordlists/subdomains.txt"
+  directories: "wordlists/directories.txt"
+  parameters:  "wordlists/parameters.txt"
+
+# ═══════════════════════════════════════════════════
+#  TOOL PATHS  (leave empty to use from PATH)
+# ═══════════════════════════════════════════════════
+tools:
+  subfinder:   ""
+  amass:       ""
+  httpx:       ""
+  dnsx:        ""
+  naabu:       ""
+  nuclei:      ""
+  katana:      ""
+  gospider:    ""
+  feroxbuster: ""
+  gowitness:   ""
+  trufflehog:  ""
